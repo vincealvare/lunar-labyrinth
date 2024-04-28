@@ -1,8 +1,6 @@
-# Phaser Parcel TypeScript Template
+# Phaser Parcel TypeScript
 
-This is a Phaser 3 project template that uses Parcel for bundling. It supports hot-reloading for quick development workflow, includes TypeScript support and includes scripts to generate production-ready builds.
-
-**[This Template is also available as a JavaScript version.](https://github.com/phaserjs/template-parcel)**
+This is a Phaser 3 project that uses Parcel for bundling. It supports hot-reloading for quick development workflow, includes TypeScript support and includes scripts to generate production-ready builds.
 
 ### Versions
 
@@ -11,8 +9,6 @@ This template has been updated for:
 - [Phaser 3.80.1](https://github.com/phaserjs/phaser)
 - [Parcel 2.11.0](https://github.com/parcel-bundler/parcel)
 - [TypeScript 5.3.3](https://github.com/microsoft/TypeScript)
-
-![screenshot](screenshot.png)
 
 ## Requirements
 
