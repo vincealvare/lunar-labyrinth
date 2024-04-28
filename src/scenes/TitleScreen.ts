@@ -14,7 +14,7 @@ export class TitleScreen extends Scene
     preload ()
     {
         this.load.setPath('assets')
-        this.load.image('bork', 'bork.png')
+        this.load.image('bork', 'bork-sprite-art.png')
     }
 
     constructor ()

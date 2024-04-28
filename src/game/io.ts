@@ -1,4 +1,4 @@
-// Need input coming from the blockchain for this. Set to random for now
+// Use borkTrait for the input value
 export const borkTraitOptions = ['Maverick', 'Junk Collector', 'Houdini', 'Magellan', 'None']
 export const borkTrait = borkTraitOptions[Math.floor(Math.random() * borkTraitOptions.length)]
 
@@ -17,6 +17,6 @@ export function setTriesRemaining(value: number) {
 
 export function handleGameEnd() {
     const aetherReward = getTriesRemaining()
-    console.log(aetherReward)
+    if(!aetherReward){return}
 }
-
+// Use aetherReward for the output value
