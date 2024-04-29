@@ -33,17 +33,20 @@ export class TitleScreen extends Scene
         }).setOrigin(0.5)
 
         this.use = this.add.text(304, 180, 'Collect all the Aether', {
-            fontFamily: 'Arial Black', fontSize: 22, color: '#ffffff',
+            fontFamily: 'Arial', fontSize: 22, color: '#ffffff',
+            fontStyle: 'bold',
             align: 'center'
         }).setOrigin(0.5)
 
         this.collect = this.add.text(304, 230, 'Collect power-ups to boost speed', {
-            fontFamily: 'Arial Black', fontSize: 22, color: '#ffffff',
+            fontFamily: 'Arial', fontSize: 22, color: '#ffffff',
+            fontStyle: 'bold',
             align: 'center'
         }).setOrigin(0.5)
 
         this.avoid = this.add.text(304, 285, 'AVOID ENEMIES - THEY ARE NEVER EDIBLE', {
-            fontFamily: 'Arial Black', fontSize: 22, color: '#fffc3b',
+            fontFamily: 'Arial', fontSize: 22, color: '#fffc3b',
+            fontStyle: 'bold',
             align: 'center'
         }).setOrigin(0.5)
 

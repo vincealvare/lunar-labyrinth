@@ -158,8 +158,9 @@ export class Game extends Scene
         this.livesText = this.add.text(263, 194, 'Lives: ' + triesRemaining, { fontFamily: 'Arial', fontSize: '24px', color: '#ffffff' }).setVisible(false)
         this.goLivesVisibility()
 
-        this.avoidMsg = this.add.text(304, 432, 'AVOID ENEMIES - THEY ARE NEVER EDIBLE', {
-            fontFamily: 'Arial Black', fontSize: 14, color: '#fffc3b',
+        this.avoidMsg = this.add.text(304, 433, 'AVOID ENEMIES - THEY ARE NEVER EDIBLE', {
+            fontFamily: 'Arial', fontSize: 14, color: '#fffc3b',
+            fontStyle: 'bold',
             align: 'center'
         }).setOrigin(0.5)
     }
