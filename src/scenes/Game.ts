@@ -143,7 +143,6 @@ export class Game extends Scene
             this.physics.add.overlap(this.hero, this.ghostGroup, this.handleHeroGhostCollision, undefined, this)
         }
 
-        
 		if(borkTrait == 'Maverick'){
 			this.add.text(304, 16, borkTrait + ' = Slower Enemies', { fontFamily: 'Arial', fontSize: '14px', color: '#ffffff' }).setOrigin(0.5)
 		} else if(borkTrait == 'Houdini'){
