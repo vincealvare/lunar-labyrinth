@@ -182,7 +182,7 @@ export class Game extends Scene
                     handleGameEnd()
                     setTimeout(() => {
                         this.scene.stop()
-                    }, 10000000)
+                    }, 2000)
                 } else {
                     this.hero.resetHero()
                     this.ghostGroup.clear(true, true)
@@ -254,7 +254,7 @@ export class Game extends Scene
                 this.scene.pause()
                 setTimeout(() => {
                     this.scene.stop()
-                }, 10000000)
+                }, 2000)
             }
         }
     }
