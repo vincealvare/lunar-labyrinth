@@ -6,7 +6,7 @@
     "browserslist": "> 0.25%, last 2 versions, not dead",
     "scripts": {
         "dev": "parcel index.html --no-cache --config ./parcel/.parcel.dev --open",
-        "build": "parcel build index.html --public-url _relativeroute_ --no-source-maps --log-level error --config ./parcel/.parcel.prod"
+        "build": "parcel build index.html --public-url _relativeroute_ --no-source-maps --no-scope-hoist --no-cache --log-level error --config ./parcel/.parcel.prod"
     },
     "repository": {
         "type": "git",
