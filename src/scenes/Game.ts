@@ -41,7 +41,7 @@ export class Game extends Scene
         right: Phaser.Input.Keyboard.Key
     }
     lastMobileDirection: Record<Direction, boolean> = { up: false, down: false, left: false, right: false }
-    buttons: { up: Phaser.GameObjects.Rectangle, down: Phaser.GameObjects.Rectangle, left: Phaser.GameObjects.Rectangle, right: Phaser.GameObjects.Rectangle }
+    buttons: { up: Phaser.GameObjects.Image, down: Phaser.GameObjects.Image, left: Phaser.GameObjects.Image, right: Phaser.GameObjects.Image }
     gameOver = false
     avoidMsg: Phaser.GameObjects.Text
 
@@ -76,6 +76,10 @@ export class Game extends Scene
         this.load.atlas('board-atlas', 'assets/board.png', 'assets/board.json')
         this.load.atlas('game-atlas', 'assets/game.png', 'assets/game.json')
         this.load.atlas('bork-atlas', 'assets/bork.png', 'assets/bork.json')
+        this.load.image('arrow-up', 'assets/arrow-up.png')
+        this.load.image('arrow-down', 'assets/arrow-down.png')
+        this.load.image('arrow-left', 'assets/arrow-left.png')
+        this.load.image('arrow-right', 'assets/arrow-right.png')
     }
 
     create ()
@@ -141,6 +145,7 @@ export class Game extends Scene
             this.physics.add.overlap(this.hero, dots, this.handlePlayerEatDot, this.processPlayerEatDot, this)
             this.physics.add.overlap(this.hero, powerDots, this.handlePlayerEatPowerDot, this.processPlayerEatDot, this)
             this.physics.add.overlap(this.hero, this.ghostGroup, this.handleHeroGhostCollision, undefined, this)
+            this.physics.add.collider(this.hero, boardLayer)
         }
 
 		if(borkTrait == 'Maverick'){
@@ -158,7 +163,7 @@ export class Game extends Scene
         this.goLivesVisibility()
 
         this.avoidMsg = this.add.text(304, 433, 'AVOID ENEMIES - THEY ARE NEVER EDIBLE', {
-            fontFamily: 'Arial', fontSize: 14, color: '#fffc3b',
+            fontFamily: 'Arial', fontSize: '14', color: '#fffc3b',
             fontStyle: 'bold',
             align: 'center'
         }).setOrigin(0.5)
@@ -243,11 +248,11 @@ export class Game extends Scene
                 this.hero.boostText.destroy()
                 this.hero.setTint(0xFFFFFF)
                 this.add.text(304, 183, 'You Win!', {
-                    fontFamily: 'Arial', fontSize: 14, color: '#ffffff',
+                    fontFamily: 'Arial', fontSize: '14', color: '#ffffff',
                     align: 'center'
                 }).setOrigin(0.5)
                 this.add.text(304, 233, triesRemaining + ' Aether', {
-                    fontFamily: 'Arial', fontSize: 14, color: '#ffffff',
+                    fontFamily: 'Arial', fontSize: '14', color: '#ffffff',
                     align: 'center'
                 }).setOrigin(0.5)
                 
@@ -260,51 +265,44 @@ export class Game extends Scene
     }
 
     createMobileControls() {
-		const controlWidth = 608
-		const controlHeight = 88
-		const buttonWidth = 195
-		const buttonHeight = 88
-		const padding = 4
-	
-		const controlAreaX = (this.scale.width - controlWidth) / 2
-		const controlAreaY = this.scale.height - controlHeight - 10
-		const controlArea = this.add.container(controlAreaX + controlWidth / 2, controlAreaY + controlHeight / 2)
-        
-		const buttons = this.buttons = {
-            up: this.add.rectangle(0, -buttonHeight - padding / 2, buttonWidth, buttonHeight, 0x0000ff).setInteractive(),
-            down: this.add.rectangle(0, padding / 2, buttonWidth, buttonHeight, 0x0000ff).setInteractive(),
-            left: this.add.rectangle(-buttonWidth - padding, -44, buttonWidth, buttonHeight, 0x0000ff).setInteractive(),
-            right: this.add.rectangle(buttonWidth + padding, -44, buttonWidth, buttonHeight, 0x0000ff).setInteractive()
-        }
+        const controlWidth = 608
+        const controlHeight = 70
 
+        const controlAreaX = (this.scale.width - controlWidth) / 2
+        const controlAreaY = this.scale.height - controlHeight - 6
+        const controlArea = this.add.container(controlAreaX + controlWidth / 2, controlAreaY + controlHeight / 2)
+
+        const buttons = this.buttons = {
+            up: this.add.image(175, 0, 'arrow-up').setInteractive(),
+            down: this.add.image(250, 0, 'arrow-down').setInteractive(),
+            left: this.add.image(-250, 0, 'arrow-left').setInteractive(),
+            right: this.add.image(-175, 0, 'arrow-right').setInteractive()
+        }
+    
         controlArea.add([this.buttons.up, this.buttons.down, this.buttons.left, this.buttons.right])
-	
-		const activateButton = (direction: Direction) => {
-			Object.values(buttons).forEach(button => button.setFillStyle(0x0000ff))
-			buttons[direction].setFillStyle(0xfe03f0)
-			Object.keys(this.lastMobileDirection).forEach((key: any) => {
+    
+        const activateButton = (direction: Direction) => {
+            Object.keys(this.lastMobileDirection).forEach((key: any) => {
                 this.lastMobileDirection[key as Direction] = (key === direction)
             })
-		}
-	
-		Object.entries(buttons).forEach(([direction, button]) => {
-			button.on('pointerdown', () => activateButton(direction as Direction))
-			button.on('pointerover', () => {
-				if (this.game.input.activePointer.isDown) {
-					activateButton(direction as Direction)
-				}
-			})
-			button.on('pointerup', () => {
-				button.setFillStyle(0x0000ff)
-				this.lastMobileDirection[direction as Direction] = false
-			})
-            button.on('pointerout', () => {
-                button.setFillStyle(0x0000ff)
+        }
+    
+        Object.entries(buttons).forEach(([direction, button]) => {
+            button.on('pointerdown', () => activateButton(direction as Direction))
+            button.on('pointerover', () => {
+                if (this.game.input.activePointer.isDown) {
+                    activateButton(direction as Direction)
+                }
+            })
+            button.on('pointerup', () => {
                 this.lastMobileDirection[direction as Direction] = false
             })
-		})
-		
-	}
+            button.on('pointerout', () => {
+                this.lastMobileDirection[direction as Direction] = false
+            })
+        })
+    }
+    
 
     update(t: number, dt: number) {
         this.physics.world.step(1 / 120)
@@ -317,16 +315,6 @@ export class Game extends Scene
         if (this.hero.body && this.boardLayer) {
     
             const directions: Direction[] = ['up', 'down', 'left', 'right']
-            const wsadKeys = {up: this.wsad.up, down: this.wsad.down, left: this.wsad.left, right: this.wsad.right}
-            const cursorKeys = {up: this.cursors.up, down: this.cursors.down, left: this.cursors.left, right: this.cursors.right}
-    
-            directions.forEach(dir => {
-                if (wsadKeys[dir].isDown || cursorKeys[dir].isDown || this.lastMobileDirection[dir]) {
-                    this.buttons[dir].setFillStyle(0xfe03f0)
-                } else {
-                    this.buttons[dir].setFillStyle(0x0000ff)
-                }
-            })
     
             this.hero.handleMovement(dt, { cursors: this.cursors, wsad: this.wsad }, this.boardLayer)
     

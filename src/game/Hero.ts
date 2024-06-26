@@ -121,7 +121,6 @@ export default class Hero extends Phaser.Physics.Arcade.Sprite
 		this.revertDelay 
 		}
 		this.setPosition(this.spawnPoint.x, this.spawnPoint.y)
-
 	}
 
 	setSpeed(speed: number) {
@@ -355,8 +354,6 @@ export default class Hero extends Phaser.Physics.Arcade.Sprite
 
 	getKeysDownState(cursors: Phaser.Types.Input.Keyboard.CursorKeys, wasd: { up: Phaser.Input.Keyboard.Key, down: Phaser.Input.Keyboard.Key, left: Phaser.Input.Keyboard.Key, right: Phaser.Input.Keyboard.Key })
 	{
-		
-
 		return {
 			left: cursors.left.isDown || wasd.left.isDown,
 			right: cursors.right.isDown || wasd.right.isDown,

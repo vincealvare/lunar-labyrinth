@@ -6,7 +6,7 @@ import { Game, Types } from "phaser";
 const config: Types.Core.GameConfig = {
     type: Phaser.AUTO,
     width: 608,
-    height: 640,
+    height: 530,
     parent: 'game-container',
     backgroundColor: '#000000',
     scale: {
