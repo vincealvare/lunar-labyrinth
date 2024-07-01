@@ -187,7 +187,7 @@ export class Game extends Scene
                     handleGameEnd()
                     setTimeout(() => {
                         this.scene.stop()
-                    }, 2000)
+                    }, 200000)
                 } else {
                     this.hero.resetHero()
                     this.ghostGroup.clear(true, true)
@@ -241,25 +241,27 @@ export class Game extends Scene
                 if(borkTrait == 'Junk Collector'){
                     triesRemaining++
                     setTriesRemaining(triesRemaining)
+                } else if(borkTrait == 'Houdini' && triesRemaining == 4){
+                    triesRemaining--
+                    setTriesRemaining(triesRemaining)
                 } else {
                     setTriesRemaining(triesRemaining)
                 }
+                
                 //this.livesText.destroy()
                 this.hero.boostText.destroy()
                 this.hero.setTint(0xFFFFFF)
                 this.add.text(304, 183, 'You Win!', {
-                    fontFamily: 'Arial', fontSize: '14', color: '#ffffff',
-                    align: 'center'
+                    fontFamily: 'Arial', fontSize: '14', color: '#ffffff', align: 'center'
                 }).setOrigin(0.5)
                 this.add.text(304, 233, triesRemaining + ' Aether', {
-                    fontFamily: 'Arial', fontSize: '14', color: '#ffffff',
-                    align: 'center'
+                    fontFamily: 'Arial', fontSize: '14', color: '#ffffff', align: 'center'
                 }).setOrigin(0.5)
                 
                 this.scene.pause()
                 setTimeout(() => {
                     this.scene.stop()
-                }, 2000)
+                }, 200000)
             }
         }
     }
